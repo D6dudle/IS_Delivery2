@@ -27,22 +27,22 @@ public class ManageSystem implements IManageSystem {
         return list;
     }*/
 
-    public void newUser(String name, String email, String password, LocalDateTime dob){
+    public void newTraveler(String name, String email, String password, LocalDateTime dob){
         System.out.println("Adding user " + name + "...");
-        User u = new User(name, email, password, dob, false);
+        Traveler u = new Traveler(name, email, password, dob, false);
         em.persist(u);
     }
 
-    public Boolean updateUser(User newUser){
-        System.out.println("Updating user " + newUser.getName() + "...");
-        TypedQuery<User> q = em.createQuery("UPDATE User u " +
+    public Boolean updateTraveler(Traveler newTraveler){
+        System.out.println("Updating user " + newTraveler.getName() + "...");
+        TypedQuery<Traveler> q = em.createQuery("UPDATE User u " +
                 "SET u.name= :name, u.email= :email, u.password= :password, u.dob= :dob, u.isManager= :isManager" +
-                "WHERE u.id= :id", User.class);
-        q.setParameter("name", newUser.getName());
-        q.setParameter("email", newUser.getEmail());
-        q.setParameter("password", newUser.getPassword());
-        q.setParameter("dob", newUser.getDob());
-        q.setParameter("isManager", newUser.getManager());
+                "WHERE u.id= :id", Traveler.class);
+        q.setParameter("name", newTraveler.getName());
+        q.setParameter("email", newTraveler.getEmail());
+        q.setParameter("password", newTraveler.getPassword());
+        q.setParameter("dob", newTraveler.getDob());
+        q.setParameter("isManager", newTraveler.getManager());
         return q.executeUpdate() >= 1;
     }
 }

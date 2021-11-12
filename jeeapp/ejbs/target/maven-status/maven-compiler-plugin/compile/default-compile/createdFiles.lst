@@ -1,2 +1,2 @@
-beans/IManageStudents.class
-beans/ManageStudents.class
+beans/ManageSystem.class
+beans/IManageSystem.class

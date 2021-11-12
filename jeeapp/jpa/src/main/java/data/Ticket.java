@@ -1,6 +1,5 @@
 package data;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import javax.persistence.*;
 
 /**
@@ -16,15 +15,15 @@ public class Ticket implements Serializable {
     @ManyToOne
     private Trip trip;
     @ManyToOne
-    private User user;
+    private Traveler traveler;
 
     public Ticket() {
         super();
     }
 
-    public Ticket(Trip trip, User user) {
+    public Ticket(Trip trip, Traveler traveler) {
         this.trip = trip;
-        this.user = user;
+        this.traveler = traveler;
     }
 
     public Integer getId() {
@@ -43,11 +42,11 @@ public class Ticket implements Serializable {
         this.trip = trip;
     }
 
-    public User getUser() {
-        return user;
+    public Traveler getUser() {
+        return traveler;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Traveler traveler) {
+        this.traveler = traveler;
     }
 }

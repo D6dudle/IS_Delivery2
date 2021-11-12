@@ -25,7 +25,7 @@ RUN set -eux \
   zip \
   zsh \
   && microdnf clean all \
-  # add a user (--disabled-password: the user won't be able to use the account until the password is set)
+  # add a traveler (--disabled-password: the traveler won't be able to use the account until the password is set)
   && adduser -p ${USER_PASSWORD} --shell /bin/zsh --home /home/$USER_NAME -c "User" ${USER_NAME} \
   # update the password
   && echo ${USER_NAME}:${USER_PASSWORD} | chpasswd \
@@ -44,7 +44,7 @@ RUN curl -LO https://repo1.maven.org/maven2/com/sun/xml/ws/jaxws-ri/3.0.2/jaxws-
   && unzip jaxws-ri-3.0.2.zip
 ENV PATH="/jaxws-ri/bin/:${PATH}"
 
-# the user we're applying this too (otherwise it most likely install for root)
+# the traveler we're applying this too (otherwise it most likely install for root)
 USER $USER_NAME
 # terminal colors with xterm
 ENV TERM xterm

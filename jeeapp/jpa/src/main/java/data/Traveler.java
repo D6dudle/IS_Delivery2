@@ -5,11 +5,11 @@ import java.util.List;
 import javax.persistence.*;
 
 /**
- * Entity implementation class for Entity: User
+ * Entity implementation class for Entity: Traveler
  *
  */
 @Entity
-public class User implements Serializable {
+public class Traveler implements Serializable {
     private static final Long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,14 +20,14 @@ public class User implements Serializable {
     private LocalDateTime dob;
     private Boolean isManager;
     private Double wallet;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "traveler")
     private List<Ticket> tickets;
 
-    public User() {
+    public Traveler() {
         super();
     }
 
-    public User(String name, String email, String password, LocalDateTime dob, Boolean isManager) {
+    public Traveler(String name, String email, String password, LocalDateTime dob, Boolean isManager) {
         this.name = name;
         this.email = email;
         this.password = password;
