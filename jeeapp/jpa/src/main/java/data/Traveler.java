@@ -11,10 +11,11 @@ import javax.persistence.*;
 @Entity
 public class Traveler implements Serializable {
     private static final Long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    //private Integer id;
     private String name;
+    @Id
     private String email;
     private String password;
     private LocalDateTime dob;
@@ -37,13 +38,13 @@ public class Traveler implements Serializable {
         this.tickets = null;
     }
 
-    public Integer getId() {
+    /*public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
+    }*/
 
     public String getName() {
         return name;
