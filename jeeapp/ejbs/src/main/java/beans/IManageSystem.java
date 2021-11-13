@@ -21,4 +21,8 @@ public interface IManageSystem {
     public void chargeWallet(String email, Double amount);
 
     public void buyTicket(String email, Integer tripID, Integer amount);
+
+    public Boolean returnTicket(String email, Integer ticketID);
+
+    public List<Trip> listMyTrips(String email);
 }

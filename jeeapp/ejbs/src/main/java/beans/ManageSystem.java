@@ -2,6 +2,7 @@ package beans;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -85,5 +86,32 @@ public class ManageSystem implements IManageSystem {
         em.persist(ticket);
 
         chargeWallet(email, -trip.getPrice());
+    }//POR TESTAR
+
+    public Boolean returnTicket(String email, Integer ticketID){
+        System.out.println("Returning ticket " + email + " for " + ticketID + "...");
+        Traveler t = em.find(Traveler.class, email);
+        Ticket ticket = em.find(Ticket.class, ticketID);
+        Trip trip = ticket.getTrip();
+
+        if (trip.getDate().isAfter(LocalDateTime.now())) {
+            em.remove(ticket);
+            chargeWallet(email, trip.getPrice());
+            return true;
+        }
+        else {
+            return false;
+        }
+    }//POR TESTAR
+
+    public List<Trip> listMyTrips(String email){
+        System.out.println("Retrieving trips from the database for user + " + email + "...");
+        List<Ticket> ticketList = em.find(Traveler.class, email).getTickets();
+        List<Trip> list = new ArrayList<>();
+
+        for (Ticket elem : ticketList){
+            list.add(elem.getTrip());
+        }
+        return list;
     }//POR TESTAR
 }
