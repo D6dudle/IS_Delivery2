@@ -1,5 +1,6 @@
 package beans;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import data.*;
 
@@ -30,23 +32,32 @@ public class ManageSystem implements IManageSystem {
         return list;
     }*/
 
-    public Boolean tryLogin(String email, String password){
+    public Traveler tryLogin(String email, String password){
         System.out.println("Logging in " + email + "...");
         Traveler t = em.find(Traveler.class, email);
 
         if (t != null && t.getPassword().equals(password))
-            return true;
+            return t;
         else
-            return false;
+            return null;
     }
 
-    public void newTraveler(String name, String email, String password, LocalDateTime dob){
+    public Traveler getTraveler(String email){
+        Traveler t = em.find(Traveler.class, email);
+        return t;
+    }
+
+    public Boolean newTraveler(String name, String email, String password, LocalDate dob){
         System.out.println("Adding user " + name + "...");
-        Traveler u = new Traveler(name, email, password, dob, false);
-        em.persist(u);
+        if (em.find(Traveler.class, email) == null) {
+            Traveler u = new Traveler(name, email, password, dob, false);
+            em.persist(u);
+            return true;
+        }
+        return false;
     }
 
-    public void updateTraveler(String name, String email, String password, LocalDateTime dob, Boolean isManager){
+    public void updateTraveler(String name, String email, String password, LocalDate dob, Boolean isManager){
         System.out.println("Updating user " + name + "...");
         Traveler t = em.find(Traveler.class, email);
         t.setName(name);
@@ -62,7 +73,7 @@ public class ManageSystem implements IManageSystem {
         em.remove(t);
     }//POR TESTAR - VERIFICAR SE FAZ CASCADE PARA OS BILHETES
 
-    public List<Trip> listTrips(LocalDateTime beginFilter, LocalDateTime endFilter){
+    public List<Trip> listTrips(LocalDate beginFilter, LocalDate endFilter){
         System.out.println("Retrieving trips from the database...");
         TypedQuery<Trip> t = em.createQuery("FROM Trip t WHERE t.date >= :beginFilter AND t.date <= :endFilter", Trip.class)
                 .setParameter("beginFilter", beginFilter.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "::date")
@@ -71,14 +82,15 @@ public class ManageSystem implements IManageSystem {
         return list;
     }//POR TESTAR
 
-    public void chargeWallet(String email, Double amount){
+    public Double chargeWallet(String email, Double amount){
         System.out.println("Charging wallet " + email + "...");
         Traveler t = em.find(Traveler.class, email);
         t.setWallet(t.getWallet() + amount);
         em.merge(t);
+        return t.getWallet();
     }//POR TESTAR
 
-    public void buyTicket(String email, Integer tripID, Integer amount){
+    public void buyTicket(String email, Integer tripID, Double amount){
         System.out.println("Buying ticket " + email + " for " + tripID + "...");
         Traveler t = em.find(Traveler.class, email);
         Trip trip = em.find(Trip.class, tripID);
@@ -90,11 +102,11 @@ public class ManageSystem implements IManageSystem {
 
     public Boolean returnTicket(String email, Integer ticketID){
         System.out.println("Returning ticket " + email + " for " + ticketID + "...");
-        Traveler t = em.find(Traveler.class, email);
         Ticket ticket = em.find(Ticket.class, ticketID);
         Trip trip = ticket.getTrip();
 
-        if (trip.getDate().isAfter(LocalDateTime.now())) {
+        if (trip.getDate().isAfter(LocalDate.now())) {
+
             em.remove(ticket);
             chargeWallet(email, trip.getPrice());
             return true;
@@ -105,7 +117,7 @@ public class ManageSystem implements IManageSystem {
     }//POR TESTAR
 
     public List<Trip> listMyTrips(String email){
-        System.out.println("Retrieving trips from the database for user + " + email + "...");
+        System.out.println("Retrieving trips from the database for user " + email + "...");
         List<Ticket> ticketList = em.find(Traveler.class, email).getTickets();
         List<Trip> list = new ArrayList<>();
 
@@ -113,5 +125,11 @@ public class ManageSystem implements IManageSystem {
             list.add(elem.getTrip());
         }
         return list;
+    }//POR TESTAR
+
+    public List<Ticket> listMyTickets(String email){
+        System.out.println("Retrieving tickets from the database for user " + email + "...");
+        List<Ticket> ticketList = em.find(Traveler.class, email).getTickets();
+        return ticketList;
     }//POR TESTAR
 }

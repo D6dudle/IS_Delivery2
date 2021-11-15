@@ -1,5 +1,6 @@
 package data;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.*;
@@ -18,7 +19,7 @@ public class Traveler implements Serializable {
     @Id
     private String email;
     private String password;
-    private LocalDateTime dob;
+    private LocalDate dob;
     private Boolean isManager;
     private Double wallet;
     @OneToMany(mappedBy = "traveler")
@@ -28,7 +29,7 @@ public class Traveler implements Serializable {
         super();
     }
 
-    public Traveler(String name, String email, String password, LocalDateTime dob, Boolean isManager) {
+    public Traveler(String name, String email, String password, LocalDate dob, Boolean isManager) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -37,14 +38,6 @@ public class Traveler implements Serializable {
         this.wallet = 0.0;
         this.tickets = null;
     }
-
-    /*public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }*/
 
     public String getName() {
         return name;
@@ -70,11 +63,11 @@ public class Traveler implements Serializable {
         this.password = password;
     }
 
-    public LocalDateTime getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(LocalDateTime dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 

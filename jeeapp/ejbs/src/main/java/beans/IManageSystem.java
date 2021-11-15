@@ -1,28 +1,33 @@
 package beans;
 
+import data.Ticket;
 import data.Traveler;
 import data.Trip;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IManageSystem {
 
-    public Boolean tryLogin(String email, String password);
+    public Traveler tryLogin(String email, String password);
 
-    public void newTraveler(String name, String email, String password, LocalDateTime dob);
+    public Traveler getTraveler(String email);
 
-    public void updateTraveler(String name, String email, String password, LocalDateTime dob, Boolean isManager);
+    public Boolean newTraveler(String name, String email, String password, LocalDate dob);
+
+    public void updateTraveler(String name, String email, String password, LocalDate dob, Boolean isManager);
 
     public void deleteTraveler(String email);
 
-    public List<Trip> listTrips(LocalDateTime beginFilter, LocalDateTime endFilter);
+    public List<Trip> listTrips(LocalDate beginFilter, LocalDate endFilter);
 
-    public void chargeWallet(String email, Double amount);
+    public Double chargeWallet(String email, Double amount);
 
-    public void buyTicket(String email, Integer tripID, Integer amount);
+    public void buyTicket(String email, Integer tripID, Double amount);
 
     public Boolean returnTicket(String email, Integer ticketID);
 
     public List<Trip> listMyTrips(String email);
+
+    public List<Ticket> listMyTickets(String email);
 }

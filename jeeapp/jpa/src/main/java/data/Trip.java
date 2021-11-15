@@ -1,5 +1,6 @@
 package data;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class Trip implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private LocalDateTime date;
+    private LocalDate date;
     private String departurePoint;
     private String destinationPoint;
     private Integer maxCapacity;
@@ -27,7 +28,7 @@ public class Trip implements Serializable {
         super();
     }
 
-    public Trip(LocalDateTime date, String departurePoint, String destinationPoint, Integer maxCapacity, Double price) {
+    public Trip(LocalDate date, String departurePoint, String destinationPoint, Integer maxCapacity, Double price) {
         this.date = date;
         this.departurePoint = departurePoint;
         this.destinationPoint = destinationPoint;
@@ -44,11 +45,11 @@ public class Trip implements Serializable {
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

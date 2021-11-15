@@ -11,18 +11,26 @@
     <title>My Account</title>
 </head>
 <body>
-    <form action='updateAccount' method='post'>
-        Username: <input id="name" type='text' name='name'/>
+     <div style="text-align:center;">
+        <form action='updateAccount' method='post'>
+            Name: <input id="name" type='text' name='name' value="${name}"/>
+            <br/><br/>
+            Birth date: <input id="dob" type="date" name='dob' value="${dob}">
+            <br/><br/>
+            Old Password: <input id="oldPassword" type='password' name='oldPassword'/>
+            <br/><br/>
+            New Password: <input id="password" type='password' name='password'/>
+            <br/><br/>
+            Confirm New Password: <input id="passwordCopy" type='password' name='passwordCopy'/>
+            <br/><br/>
+            <input type='submit' value='Update Account'/>
+        </form>
         <br/><br/>
-        Birth date: <input id="dob" type="date" name='dob'>
+        <a href="main.jsp">Back</a>
         <br/><br/>
-        Old Password: <input id="oldPassword" type='text' name='oldPassword'/>
-        <br/><br/>
-        New Password: <input id="password" type='text' name='password'/>
-        <br/><br/>
-        Confirm New Password: <input id="passwordCopy" type='text' name='passwordCopy'/>
-        <br/><br/>
-        <input type='submit' value='updateAccount'/>
-    </form>
+        <form action='logOut' method='post'>
+            <input type='submit' value='Log Out'/>
+        </form>
+    </div>
 </body>
 </html>

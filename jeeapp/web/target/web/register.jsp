@@ -10,18 +10,22 @@
     <head>
         <title>Register</title>
     </head>
-
     <body>
-        <form action='register' method='post'>
-            Username: <input type='username' name='username'/>
-            Email: <input type='text' name='email'/>
-            <br/><br/>
-            Password: <input type='password' name='password'/>
-            <br/><br/>
-            Password: <input type='passwordCopy' name='passwordCopy'/>
-            <br/><br/>
-            <input type='submit' value='register'/>
-        </form>
+        <div style="text-align:center;">
+            <form action='register' method='post'>
+                Name: <input type='username' name='username'/>
+                <br/><br/>
+                Birth date: <input id="dob" type="date" name='dob'>
+                <br/><br/>
+                Email: <input type='text' name='email'/>
+                <br/><br/>
+                Password: <input type='password' name='password'/>
+                <br/><br/>
+                Password: <input type='password' name='passwordCopy'/>
+                <br/><br/>
+                <input type='submit' value='register'/>
+            </form>
+        </div>
     </body>
 </html>
 
