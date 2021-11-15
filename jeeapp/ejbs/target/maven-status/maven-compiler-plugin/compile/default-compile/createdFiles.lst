@@ -1,3 +1,4 @@
 beans/ManageSystem.class
-beans/IManageSystem.class
 beans/SetUp.class
+beans/IManageSystem.class
+beans/PasswordUtils.class

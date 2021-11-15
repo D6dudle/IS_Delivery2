@@ -33,7 +33,12 @@ public class ManageSystem implements IManageSystem {
         System.out.println("Logging in " + email + "...");
         Traveler t = em.find(Traveler.class, email);
 
-        if (t != null && t.getPassword().equals(password))
+        String BDpassword = t.getPassword();
+        String salt = t.getSalt();
+
+        String newPassword = PasswordUtils.generateSecurePassword(password, salt);
+
+        if (t != null && newPassword.equals(BDpassword))
             return t;
         else
             return null;
@@ -47,7 +52,10 @@ public class ManageSystem implements IManageSystem {
     public Boolean newTraveler(String name, String email, String password, LocalDate dob){
         System.out.println("Adding user " + name + "...");
         if (em.find(Traveler.class, email) == null) {
-            Traveler u = new Traveler(name, email, password, dob, false);
+            String salt = PasswordUtils.getSalt(30);
+            String mySecurePassword = PasswordUtils.generateSecurePassword(password, salt);
+            Traveler u = new Traveler(name, email, mySecurePassword, dob, false);
+            u.setSalt(salt);
             em.persist(u);
             return true;
         }

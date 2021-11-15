@@ -4,6 +4,7 @@
 /workspace/web/src/main/java/servlet/RedirectGetTopUsers.java
 /workspace/web/src/main/java/servlet/LogIn.java
 /workspace/web/src/main/java/servlet/RedirectCreateTrip.java
+/workspace/web/src/main/java/filter/UserFilter.java
 /workspace/web/src/main/java/servlet/RedirectGetUserWallet.java
 /workspace/web/src/main/java/servlet/LogOut.java
 /workspace/web/src/main/java/servlet/DeleteAccount.java
@@ -13,9 +14,9 @@
 /workspace/web/src/main/java/servlet/FilterTrips.java
 /workspace/web/src/main/java/servlet/ListTripTravelers.java
 /workspace/web/src/main/java/servlet/RedirectBuyTickets.java
+/workspace/web/src/main/java/filter/ManagerFilter.java
 /workspace/web/src/main/java/servlet/RedirectRegister.java
 /workspace/web/src/main/java/servlet/BuyTickets.java
 /workspace/web/src/main/java/servlet/CancelTicket.java
 /workspace/web/src/main/java/servlet/RedirectEditAccount.java
 /workspace/web/src/main/java/servlet/RedirectGetTrips.java
-/workspace/web/src/main/java/servlet/ListTopUsers.java

@@ -15,7 +15,6 @@ servlet/DeleteTrip.class
 servlet/RedirectBuyTickets.class
 servlet/RedirectCreateTrip.class
 servlet/LogOut.class
-servlet/ListTopUsers.class
 servlet/LogIn.class
 servlet/BuyTickets.class
 servlet/CreateTrip.class

@@ -13,12 +13,11 @@ import javax.persistence.*;
 public class Traveler implements Serializable {
     private static final Long serialVersionUID = 1L;
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
     private String name;
     @Id
     private String email;
     private String password;
+    private String salt;
     private LocalDate dob;
     private Boolean isManager;
     private Double wallet;
@@ -93,5 +92,13 @@ public class Traveler implements Serializable {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }
