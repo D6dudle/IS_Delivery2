@@ -1,6 +1,7 @@
 package servlet;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,18 +18,17 @@ public class RedirectGetTopUsers extends HttpServlet {
     @EJB
     private IManageSystem manageSystem;
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Traveler t = manageSystem.tryLogin(request.getParameter("email"), request.getParameter("password"));
-        if (t != null) {
-            if (t.getManager()) {
-                //TODO: enviar para o .jsp o top 5 users com mais tickets comprados
-                request.getRequestDispatcher("listTopUsers.jsp").forward(request, response);
-            }
-            else {
-                request.getSession().removeAttribute("email");
-                request.getRequestDispatcher("index.jsp").forward(request,response);
-            }
-        } else {
+
+        if ((boolean)request.getSession().getAttribute("isManager")) {
+            List<Traveler> list = manageSystem.listTopTravelers();
+            System.out.println(list.toString());
+            if (list != null)
+                request.setAttribute("topUsers", list);
+            request.getRequestDispatcher("listTopUsers.jsp").forward(request, response);
+        }
+        else {
             request.getSession().removeAttribute("email");
+            request.getSession().removeAttribute("isManager");
             request.getRequestDispatcher("index.jsp").forward(request,response);
         }
     }

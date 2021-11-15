@@ -15,6 +15,7 @@
     <div style="text-align:center;">
         <c:forEach var="item" items="${myTicketList}">
             <form action='cancelTicket' method='post'>
+                ID da Viagem: <input id="tripID" type="number" value="${item.trip.id}"readonly disabled/><br>
                 Partida: <input id="departure" type="text" value="${item.trip.departurePoint}"readonly/><br>
                 Destino: <input id="destination" type="text" value="${item.trip.destinationPoint}"readonly/><br>
                 Data: <input id="destination" type="text" value="${item.trip.date}"readonly/><br>

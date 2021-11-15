@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import beans.*;
+import data.Ticket;
 import data.Trip;
 
 @WebServlet("/cancelTicket")
@@ -23,9 +24,9 @@ public class CancelTicket extends HttpServlet {
             Integer tripID = Integer.parseInt(request.getParameter("submit").split("\\:")[1]);
             manageSystem.returnTicket((String) request.getSession().getAttribute("email"), tripID);
 
-            List<Trip> triplist = manageSystem.listMyTrips((String) request.getSession().getAttribute("email"));
+            List<Ticket> ticketlist = manageSystem.listMyTickets((String) request.getSession().getAttribute("email"));
 
-            request.setAttribute("myTripList", triplist);
+            request.setAttribute("myTicketList", ticketlist);
             request.getRequestDispatcher("listUserTickets.jsp").forward(request, response);
         }
         else {

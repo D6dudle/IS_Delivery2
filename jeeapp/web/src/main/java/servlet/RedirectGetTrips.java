@@ -1,5 +1,6 @@
 package servlet;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -17,11 +18,12 @@ public class RedirectGetTrips extends HttpServlet {
     @EJB
     private IManageSystem manageSystem;
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        //TODO: enviar para o .jsp as Trips q n aconteceram
         if (!(boolean)request.getSession().getAttribute("isManager")) {
+            request.setAttribute("trips", manageSystem.listTrips(LocalDate.now(), LocalDate.now().plusYears(1000)));
             request.getRequestDispatcher("listTrips.jsp").forward(request, response);
         }
         else {
+            request.setAttribute("trips", manageSystem.listTrips(LocalDate.now(), LocalDate.now().plusYears(1000)));
             request.getRequestDispatcher("listTripsManager.jsp").forward(request,response);
         }
     }

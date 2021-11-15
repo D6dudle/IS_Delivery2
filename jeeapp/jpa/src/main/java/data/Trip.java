@@ -20,7 +20,7 @@ public class Trip implements Serializable {
     private String departurePoint;
     private String destinationPoint;
     private Integer maxCapacity;
-    @OneToMany(mappedBy = "trip")
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Ticket> ticketsSold;
     private Double price;
 

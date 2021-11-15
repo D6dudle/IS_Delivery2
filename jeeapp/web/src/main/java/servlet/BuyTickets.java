@@ -1,5 +1,6 @@
 package servlet;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,7 +17,7 @@ public class BuyTickets extends HttpServlet {
 
     @EJB
     private IManageSystem manageSystem;
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         //não é manager
         if (!(boolean)request.getSession().getAttribute("isManager")) {
             //TODO:
@@ -30,6 +31,14 @@ public class BuyTickets extends HttpServlet {
             //Se não
             //3.b. -> Mensagem de Sucesso para as variáveis de sessão
             //4.b. -> request.getRequestDispatcher("listTrips.jsp").forward(request, response);
+            Integer tripID = Integer.parseInt(request.getParameter("submit").split("\\:")[1]);
+            Integer seatsQnty = Integer.parseInt(request.getParameter("numberOfTickets"));
+            manageSystem.buyTicket((String) request.getSession().getAttribute("email"),
+                    tripID,
+                    seatsQnty);
+
+            request.setAttribute("trips", manageSystem.listTrips(LocalDate.now(), LocalDate.now().plusYears(1000)));
+            request.getRequestDispatcher("listTrips.jsp").forward(request, response);
         }
         else {
             request.getSession().removeAttribute("email");

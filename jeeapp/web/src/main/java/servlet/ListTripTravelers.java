@@ -16,17 +16,20 @@ public class ListTripTravelers extends HttpServlet {
 
     @EJB
     private IManageSystem manageSystem;
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         //é manager
         if ((boolean)request.getSession().getAttribute("isManager")) {
             //TODO:
-            //1. -> Get do ID da Trip (verificar se está a setar essa variável no .jsp)
             //2. -> Get de uma lista de Travelers com bilhetes para a Trip do ID em questão
             //3. -> Setar variável de ambiente (travalers) com as trips
+            Integer tripID = Integer.parseInt(request.getParameter("submit").split("\\:")[1]);
+
+            request.setAttribute("travelers", manageSystem.listTravelersInTrip(tripID));
             request.getRequestDispatcher("listTravelers.jsp").forward(request, response);
         }
         else {
             request.getSession().removeAttribute("email");
+            request.getSession().removeAttribute("isManager");
             request.getRequestDispatcher("index.jsp").forward(request,response);
         }
     }

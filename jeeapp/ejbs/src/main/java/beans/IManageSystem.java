@@ -23,11 +23,26 @@ public interface IManageSystem {
 
     public Double chargeWallet(String email, Double amount);
 
-    public void buyTicket(String email, Integer tripID, Double amount);
+    public void buyTicket(String email, Integer tripID, Integer amount);
 
     public Boolean returnTicket(String email, Integer ticketID);
 
     public List<Trip> listMyTrips(String email);
 
     public List<Ticket> listMyTickets(String email);
+
+    public Trip getTrip(Integer id);
+
+    public void newTrip(LocalDate date, String dep, String des, Integer cap, Double price);
+
+    public void deleteTrip(Integer tripID);
+
+    public List<Traveler> listTravelersInTrip(Integer tripID);
+
+    public void sendMail();
+
+    public void addReceita(Double income);
+
+    public List<Traveler> listTopTravelers();
+
 }

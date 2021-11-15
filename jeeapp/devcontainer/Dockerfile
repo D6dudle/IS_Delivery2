@@ -23,7 +23,7 @@ RUN yum install -y epel-release \
     vim \
     wget \
     zsh \
-    # add a traveler (--disabled-password: the traveler won't be able to use the account until the password is set)
+    # add a user (--disabled-password: the user won't be able to use the account until the password is set)
     && adduser -p ${USER_PASSWORD} --shell /bin/zsh --home /home/$USER_NAME -c "User" ${USER_NAME} \
     # update the password
     && echo ${USER_NAME}:${USER_PASSWORD} | chpasswd \
@@ -34,9 +34,9 @@ RUN curl -LO https://download.jboss.org/wildfly/24.0.1.Final/wildfly-24.0.1.Fina
  && tar zxvf wildfly-24.0.1.Final.tar.gz \
  && mv wildfly-24.0.1.Final /opt/jboss/wildfly \
  && rm wildfly-24.0.1.Final.tar.gz
-RUN /opt/jboss/wildfly/bin/add-traveler.sh admin admin#7rules --silent
-RUN /opt/jboss/wildfly/bin/add-traveler.sh -a -u ejbclient 'ejb01acceS' --silent -g 'guest'
-RUN /opt/jboss/wildfly/bin/add-traveler.sh -a -u john '!1secret' --silent -g 'guest'
+RUN /opt/jboss/wildfly/bin/add-user.sh admin admin#7rules --silent
+RUN /opt/jboss/wildfly/bin/add-user.sh -a -u ejbclient 'ejb01acceS' --silent -g 'guest'
+RUN /opt/jboss/wildfly/bin/add-user.sh -a -u john '!1secret' --silent -g 'guest'
 ADD --chmod=0755 wildfly-init-config.sh /opt/jboss/wildfly/bin
 ADD --chmod=0755 configure.cli /opt/jboss/wildfly/bin
 

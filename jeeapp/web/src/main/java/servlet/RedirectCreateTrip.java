@@ -16,13 +16,14 @@ public class RedirectCreateTrip extends HttpServlet {
 
     @EJB
     private IManageSystem manageSystem;
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         //é manager
         if ((boolean)request.getSession().getAttribute("isManager")) {
             request.getRequestDispatcher("createTrip.jsp").forward(request, response);
         }
         else {
             request.getSession().removeAttribute("email");
+            request.getSession().removeAttribute("isManager");
             request.getRequestDispatcher("index.jsp").forward(request,response);
         }
     }

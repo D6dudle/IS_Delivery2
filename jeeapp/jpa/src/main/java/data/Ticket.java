@@ -13,10 +13,10 @@ public class Ticket implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     private Trip trip;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     private Traveler traveler;
 
     public Ticket() {

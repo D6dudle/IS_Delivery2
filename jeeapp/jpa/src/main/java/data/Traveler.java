@@ -13,8 +13,8 @@ import javax.persistence.*;
 public class Traveler implements Serializable {
     private static final Long serialVersionUID = 1L;
 
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-    //private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String name;
     @Id
     private String email;
@@ -22,7 +22,7 @@ public class Traveler implements Serializable {
     private LocalDate dob;
     private Boolean isManager;
     private Double wallet;
-    @OneToMany(mappedBy = "traveler")
+    @OneToMany(mappedBy = "traveler", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Ticket> tickets;
 
     public Traveler() {

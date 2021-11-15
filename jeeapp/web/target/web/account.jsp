@@ -26,6 +26,10 @@
             <input type='submit' value='Update Account'/>
         </form>
         <br/><br/>
+        <form action='deleteAccount' method='post'>
+            <input type='submit' value='Delete Account'/>
+        </form>
+        <br/><br/>
         <a href="main.jsp">Back</a>
         <br/><br/>
         <form action='logOut' method='post'>

@@ -27,6 +27,7 @@ public class RedirectGetUserTickets extends HttpServlet {
         }
         else {
             request.getSession().removeAttribute("email");
+            request.getSession().removeAttribute("isManager");
             request.getRequestDispatcher("index.jsp").forward(request,response);
         }
     }

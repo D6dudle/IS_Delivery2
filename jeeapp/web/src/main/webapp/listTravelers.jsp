@@ -6,26 +6,27 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Selected Trip Passengers</title>
 </head>
 <body>
-    <form action='localhost:8080/web/main'>
-        <div style="text-align:center;">
-            <c:forEach var="item" items="${travelers}">
-                <div>
-                    ${item}
-                    <br/><br/>
-                </div>
-            </c:forEach>
-            <br/><br/>
-            <a href="mainManager.jsp">Back</a>
-            <br></br>
-            <form action='logOut' method='post'>
-                <input type='submit' value='Log Out'/>
-            </form>
-        </div>
-    </form>
+    <div style="text-align:center;">
+        <c:forEach var="item" items="${travelers}">
+            <div>
+                Nome: ${item.name}<br/>
+                Email: ${item.email}<br/>
+                DOB: ${item.dob}
+                <br/><br/>
+            </div>
+        </c:forEach>
+        <br/><br/>
+        <a href="mainManager.jsp">Back</a>
+        <br></br>
+        <form action='logOut' method='post'>
+            <input type='submit' value='Log Out'/>
+        </form>
+    </div>
 </body>
 </html>

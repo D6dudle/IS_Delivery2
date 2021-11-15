@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import beans.*;
 import data.Traveler;
+import data.Trip;
 
 @WebServlet("/redirectBuyTickets")
 public class RedirectBuyTickets extends HttpServlet {
@@ -19,11 +20,22 @@ public class RedirectBuyTickets extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         //não é manager
         if (!(boolean)request.getSession().getAttribute("isManager")) {
-            //TODO: adicionar às variaveis de sessão a viagem selecionada
+
+            Integer tripID = Integer.parseInt(request.getParameter("submit").split("\\:")[1]);
+            Trip t = manageSystem.getTrip(tripID);
+            request.setAttribute("lugares", t.getMaxCapacity()-t.getTicketsSold().size());
+            request.setAttribute("tripId", t.getId());
+            request.setAttribute("departurePoint", t.getDeparturePoint());
+            request.setAttribute("destinationPoint", t.getDestinationPoint());
+            request.setAttribute("date", t.getDate());
+            request.setAttribute("maxCapacity", t.getMaxCapacity());
+            request.setAttribute("soldTickets", t.getTicketsSold().size());
+            request.setAttribute("price", t.getPrice());
             request.getRequestDispatcher("buyTickets.jsp").forward(request, response);
         }
         else {
             request.getSession().removeAttribute("email");
+            request.getSession().removeAttribute("isManager");
             request.getRequestDispatcher("index.jsp").forward(request,response);
         }
     }

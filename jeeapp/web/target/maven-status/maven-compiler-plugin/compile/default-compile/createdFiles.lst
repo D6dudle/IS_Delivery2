@@ -5,10 +5,12 @@ servlet/RedirectGetUserTickets.class
 servlet/CancelTicket.class
 servlet/ListTripTravelers.class
 servlet/UpdateUser.class
+servlet/FilterTrips.class
 servlet/RedirectGetUserWallet.class
 servlet/RedirectRegister.class
+servlet/DeleteAccount.class
 servlet/Register.class
-servlet/updateWallet.class
+servlet/UpdateWallet.class
 servlet/DeleteTrip.class
 servlet/RedirectBuyTickets.class
 servlet/RedirectCreateTrip.class
@@ -16,3 +18,4 @@ servlet/LogOut.class
 servlet/ListTopUsers.class
 servlet/LogIn.class
 servlet/BuyTickets.class
+servlet/CreateTrip.class
